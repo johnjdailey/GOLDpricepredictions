@@ -7,39 +7,49 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app, server
-from pages import index, predictions, insights, process
+from pages import index, predictions, insights, process, pagename
 
-# Navbar docs: https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
+"""
+https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
+
+NavbarSimple consists of a 'brand' on the left, to which you can attach a link 
+with brand_href, and a number nav items as its children. NavbarSimple will 
+collapse on smaller screens, and add a toggle for revealing navigation items.
+
+brand (string, optional): Brand text, to go top left of the navbar.
+brand_href (string, optional): Link to attach to brand.
+children (a list of or a singular dash component, string or number, optional): The children of this component
+color (string, optional): Sets the color of the NavbarSimple. Main options are primary, light and dark, default light. You can also choose one of the other contextual classes provided by Bootstrap (secondary, success, warning, danger, info, white) or any valid CSS color of your choice (e.g. a hex code, a decimal code or a CSS color name)
+dark (boolean, optional): Applies the `navbar-dark` class to the NavbarSimple, causing text in the children of the Navbar to use light colors for contrast / visibility.
+light (boolean, optional): Applies the `navbar-light` class to the NavbarSimple, causing text in the children of the Navbar to use dark colors for contrast / visibility.
+sticky (string, optional): Stick the navbar to the top or the bottom of the viewport, options: top, bottom. With `sticky`, the navbar remains in the viewport when you scroll. By contrast, with `fixed`, the navbar will remain at the top or bottom of the page.
+"""
+
 navbar = dbc.NavbarSimple(
-    brand='YOUR APP NAME',
+    brand='GOLD Price Predictions',
     brand_href='/', 
     children=[
         dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
         dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
-        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
+        dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')),
+        dbc.NavItem(dcc.Link('Page Name', href='/pagename', className='nav-link')), 
     ],
     sticky='top',
-    color='light', 
-    light=True, 
-    dark=False
+    color='dark', 
+    light=False, 
+    dark=True
 )
 
-# Footer docs:
-# dbc.Container, dbc.Row, dbc.Col: https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
-# html.P: https://dash.plot.ly/dash-html-components
-# fa (font awesome) : https://fontawesome.com/icons/github-square?style=brands
-# mr (margin right) : https://getbootstrap.com/docs/4.3/utilities/spacing/
-# className='lead' : https://getbootstrap.com/docs/4.3/content/typography/#lead
 footer = dbc.Container(
     dbc.Row(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Your Name', className='mr-2'), 
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:<you>@<provider>.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/<you>'), 
+                    html.Span('John Dailey', className='mr-2'), 
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:JohnJDailey@gmail.com'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/JohnJDailey'), 
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/JohnJDailey'), 
+                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/John_J_Dailey'), 
                 ], 
                 className='lead'
             )
@@ -47,10 +57,10 @@ footer = dbc.Container(
     )
 )
 
-# Layout docs:
-# html.Div: https://dash.plot.ly/getting-started
-# dcc.Location: https://dash.plot.ly/dash-core-components/location
-# dbc.Container: https://dash-bootstrap-components.opensource.faculty.ai/l/components/layout
+# For more explanation, see: 
+# Plotly Dash User Guide, URL Routing and Multiple Apps
+# https://dash.plot.ly/urls
+
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False), 
     navbar, 
@@ -59,8 +69,6 @@ app.layout = html.Div([
     footer
 ])
 
-
-# URL Routing for Multi-Page Apps: https://dash.plot.ly/urls
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
@@ -72,9 +80,10 @@ def display_page(pathname):
         return insights.layout
     elif pathname == '/process':
         return process.layout
+    elif pathname == '/pagename':
+        return pagename.layout
     else:
         return dcc.Markdown('## Page not found')
 
-# Run app server: https://dash.plot.ly/getting-started
 if __name__ == '__main__':
     app.run_server(debug=True)
