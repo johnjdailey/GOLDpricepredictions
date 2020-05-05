@@ -40,8 +40,9 @@ column1 = dbc.Col(
     md=4,
 )
 
-#gapminder = px.data.gapminder()
-#fig = px.line(gapminder.query("year==2007"), x="Date", y="Price", title = "GOLD Prices 1985 - 2020")
+GOLD = px.data.gapminder().query("High")
+fig = px.line(GOLD, x="Date", y="High", title='GOLD Prices from 1985 - 2020')
+fig.show()
 
 column2 = dbc.Col(
     [
