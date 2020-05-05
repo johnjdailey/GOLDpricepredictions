@@ -1,3 +1,2 @@
-# Dash Template
-
-[Instructions](https://lambdaschool.github.io/ds/unit2/dash-template/)
+# A Heroku Dash App to Predict GOLD High Price
+Uses data from Yahoo Finance: https://finance.yahoo.com/quote/GOLD/history?p=GOLD
