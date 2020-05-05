@@ -45,7 +45,7 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        dcc.Graph(figure=fig),
+        #dcc.Graph(figure=fig),
     ]
 )
 
