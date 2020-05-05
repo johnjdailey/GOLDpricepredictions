@@ -41,8 +41,7 @@ column1 = dbc.Col(
 )
 
 gapminder = px.data.gapminder()
-fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
-           hover_name="country", log_x=True, size_max=60)
+fig = px.line(gapminder.query("year==2007"), x="Date", y="Price", title = "GOLD Prices 1985 - 2020")
 
 column2 = dbc.Col(
     [
