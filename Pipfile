@@ -20,6 +20,7 @@ matplotlib = "==3.2.1"
 seaborn = "==0.10.1"
 xgboost = "==0.90"
 sklearn = "==0.22"
+pipenv = "*"
 
 [requires]
 python_version = "3"
