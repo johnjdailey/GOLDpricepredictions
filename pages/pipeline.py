@@ -1,5 +1,5 @@
 from joblib import load
-pipeline = load('assets/pipeline.joblib')
+pipeline = load('assets/models/linreg.joblib')
 import dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -13,7 +13,7 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            Pipeline
+            Linear Regression
 
 
             """
